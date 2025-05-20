@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started - Beatrice AI</title>
+    <link rel="icon" href="https://i.imgur.com/sNTgIMX.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --primary-light: #c7d2fe;
+            --accent: #f43f5e;
+            --text-dark: #1a2233;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background: var(--bg-white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-logo {
+            height: 100px;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .navbar-right a {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
+        }
+        
+        .navbar-right a:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(79, 70, 229, 0.3);
+        }
+        
+        /* Main Content */
+        .main-content {
+            max-width: 640px;
+            margin: 3rem auto;
+            background: var(--bg-white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #4f46e5, #8b5cf6);
+        }
+        
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+            text-align: left;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            display: block;
+            color: var(--text-dark);
+            font-size: 1.05rem;
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background-color: #f9fafb;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+            background-color: white;
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-btn {
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+        }
+        
+        .form-btn:hover {
+            background: linear-gradient(135deg, #3730a3, #7e41d4);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4);
+        }
+        
+        .loading {
+            margin: 2rem 0;
+            font-size: 1.1rem;
+            color: var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border: 6px solid var(--primary);
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: var(--primary) transparent transparent transparent;
+        }
+        
+        .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+        
+        .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+        
+        .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+        
+        @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .result {
+            margin-top: 2.5rem;
+            background: #f1f5fb;
+            border-radius: 12px;
+            padding: 1.8rem;
+            text-align: left;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .result-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .result-title svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .result-link {
+            display: block;
+            margin-bottom: 0.7rem;
+            color: var(--primary);
+            word-break: break-all;
+            padding: 0.5rem;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        
+        .result-link:hover {
+            background: rgba(79, 70, 229, 0.15);
+        }
+        
+        /* File Upload Styling */
+        .file-upload {
+            position: relative;
+            display: block;
+            cursor: pointer;
+        }
+        
+        .file-upload::before {
+            content: 'Choose File';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload:hover::before {
+            background: rgba(79, 70, 229, 0.2);
+        }
+        
+        .file-preview {
+            margin-top: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .file-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .main-content {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+        
+        /* Responsive */
+        @media (max-width: 700px) {
+            .main-content {
+                margin: 2rem 1rem;
+                padding: 2rem 1.5rem;
+                border-radius: 15px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .form-btn {
+                padding: 0.9rem 1.5rem;
+            }
+        }
+    </style>
+    <script>
+        function showLoading() {
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('loading-section').style.display = 'flex';
+            return true;
+        }
+        
+        function previewImage() {
+            const preview = document.getElementById('image-preview');
+            const file = document.getElementById('product-image').files[0];
+            const previewContainer = document.getElementById('file-preview-container');
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                previewContainer.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="https://i.imgur.com/sNTgIMX.png" alt="Beatrice AI Logo" class="navbar-logo">
+            <span class="navbar-title">beatrice ai</span>
+        </div>
+        <div class="navbar-right">
+            <a href="/">Home</a>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="main-title">Beatrice AI</div>
+        
+        {% if not submitted %}
+        <form method="post" enctype="multipart/form-data" onsubmit="return showLoading()">
+            {% csrf_token %}
+            <div id="form-section">
+                <div class="form-group">
+                    <label class="form-label">
+                        <span>Product Photo</span>
+                        <span class="file-upload">
+                            <input class="form-input" type="file" name="product_image" id="product-image" accept="image/*" required onchange="previewImage()" style="opacity: 0; position: absolute; z-index: -1;">
+                        </span>
+                    </label>
+                    <div id="file-preview-container" class="file-preview">
+                        <img id="image-preview" src="" alt="Image preview">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Product Title</label>
+                    <input class="form-input" type="text" name="product_title" required placeholder="Enter your product name">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" name="description" required placeholder="Describe your product in detail..."></textarea>
+                </div>
+                
+                <button class="form-btn" type="submit">
+                    <span>Generate with AI</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px; display: inline-block; vertical-align: middle;">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </form>
+        
+        <div id="loading-section" style="display:none;">
+            <div class="loading">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                <div>Processing your request...<br>This may take 3 - 5 minutes.<br>Please wait.</div>
+            </div>
+        </div>
+        
+        {% elif photo_url or video_msg %}
+        <div class="result">
+            <div class="result-title">AI Result</div>
+            {% if photo_url %}
+                <div style="font-weight:700;margin-bottom:0.5rem;">Professional Photo</div>
+                <div><img src="{{ photo_url }}" alt="AI Result Photo" style="max-width:100%;border-radius:8px;box-shadow:0 2px 8px #0002;"></div>
+                <a class="result-link" href="{{ photo_url }}" target="_blank">{{ photo_url }}</a>
+            {% endif %}
+            {% if video_msg %}
+                <div style="font-weight:700;margin:1.5rem 0 0.5rem 0;">Professional Video</div>
+                <div style="color:#b91c1c;font-weight:600;">{{ video_msg }}</div>
+            {% endif %}
+        </div>
+        {% elif raw_response %}
+        <div class="result">
+            <div class="result-title">Raw API Response</div>
+            <pre style="white-space:pre-wrap;word-break:break-all;background:#f3f4f6;padding:1rem;border-radius:8px;">{{ raw_response }}</pre>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
