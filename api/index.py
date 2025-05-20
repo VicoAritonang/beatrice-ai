@@ -1,0 +1,1 @@
+from beatrice.wsgi import application as app 
