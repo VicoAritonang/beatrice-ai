@@ -432,6 +432,13 @@
             </div>
         </div>
         
+        {% elif gdrive_url %}
+        <div class="result">
+            <div class="result-title">AI Result</div>
+            <div style="font-weight:700;margin-bottom:0.5rem;">Google Drive Folder</div>
+            <a class="result-link" href="{{ gdrive_url }}" target="_blank">{{ gdrive_url }}</a>
+            <div style="margin-top:1.2rem;color:#4f46e5;font-weight:600;">Professional Photo and Video can be accessed in this drive after 3-5 minutes.</div>
+        </div>
         {% elif photo_url or video_msg %}
         <div class="result">
             <div class="result-title">AI Result</div>

@@ -15,20 +15,16 @@ def get_started(request):
         description = request.POST.get('description')
         files = {'image': (image.name, image, image.content_type)} if image else None
         data = {'product_title': title, 'description': description}
-        response = requests.post('https://coffin23.app.n8n.cloud/webhook-test/d47e5a40-6395-4fd7-aada-a1ab8f1dec73', files=files, data=data)
-        photo_url = None
-        video_msg = None
+        response = requests.post('https://coffin23.app.n8n.cloud/webhook/d47e5a40-6395-4fd7-aada-a1ab8f1dec73', files=files, data=data)
+        gdrive_url = None
         raw_response = response.text
         try:
             result_json = response.json()
             if isinstance(result_json, dict):
-                photo_url = result_json.get('photo')
-                video_msg = result_json.get('video')
+                gdrive_url = result_json.get('gdrive')
             elif isinstance(result_json, list) and len(result_json) > 0:
-                photo_url = result_json[0].get('photo')
-                video_msg = result_json[0].get('video')
+                gdrive_url = result_json[0].get('gdrive')
         except Exception:
-            photo_url = None
-            video_msg = None
-        return render(request, 'main/get_started.html', {'photo_url': photo_url, 'video_msg': video_msg, 'raw_response': raw_response, 'submitted': True})
+            gdrive_url = None
+        return render(request, 'main/get_started.html', {'gdrive_url': gdrive_url, 'raw_response': raw_response, 'submitted': True})
     return render(request, 'main/get_started.html', {'submitted': False})
