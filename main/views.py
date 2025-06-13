@@ -15,7 +15,7 @@ def get_started(request):
         description = request.POST.get('description')
         files = {'image': (image.name, image, image.content_type)} if image else None
         data = {'product_title': title, 'description': description}
-        response = requests.post('https://coffin23.app.n8n.cloud/webhook/d47e5a40-6395-4fd7-aada-a1ab8f1dec73', files=files, data=data)
+        response = requests.post('https://beatrice-ai.app.n8n.cloud/webhook-test/d47e5a40-6395-4fd7-aada-a1ab8f1dec73', files=files, data=data)
         gdrive_url = None
         raw_response = response.text
         try:
